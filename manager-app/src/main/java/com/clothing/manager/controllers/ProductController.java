@@ -1,8 +1,8 @@
 package com.clothing.manager.controllers;
 
+import com.clothing.manager.client.ProductsRestClient;
 import com.clothing.manager.controllers.payload.UpdateProductPayload;
 import com.clothing.manager.models.Product;
-import com.clothing.manager.services.ProductService;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -22,13 +22,13 @@ import java.util.NoSuchElementException;
 @RequestMapping("atum/products/{productId:\\d+}")
 public class ProductController {
 
-    private final ProductService productService;
+    private final ProductsRestClient productsRestClient;
 
     private final MessageSource messageSource;
 
     @ModelAttribute("product")
     public Product product(@PathVariable("productId") Integer productId) {
-        return this.productService.findProduct(productId)
+        return this.productsRestClient.findProduct(productId)
                 .orElseThrow(() -> new NoSuchElementException("atum.errors.product.not_found"));
     }
 
@@ -54,14 +54,14 @@ public class ProductController {
                     .toList());
             return "atum/products/edit";
         } else {
-            this.productService.updateProduct(product.getId(), payload.title(), payload.description());
-            return "redirect:/atum/products/%d".formatted(product.getId());
+            this.productsRestClient.updateProduct(product.id(), payload.title(), payload.description());
+            return "redirect:/atum/products/%d".formatted(product.id());
         }
     }
 
     @PostMapping("delete")
     public String deleteProduct(@ModelAttribute(value = "product", binding = false) Product product) {
-        this.productService.deleteProduct(product.getId());
+        this.productsRestClient.deleteProduct(product.id());
         return "redirect:/atum/products/list";
     }
 

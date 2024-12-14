@@ -1,8 +1,8 @@
 package com.clothing.manager.controllers;
 
+import com.clothing.manager.client.ProductsRestClient;
 import com.clothing.manager.controllers.payload.NewProductPayload;
 import com.clothing.manager.models.Product;
-import com.clothing.manager.services.ProductService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -16,11 +16,11 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("atum/products")
 public class ProductsController {
 
-    private final ProductService productService;
+    private final ProductsRestClient productsRestClient;
 
     @GetMapping("list")
     public String getProductsList(Model model) {
-        model.addAttribute("products", this.productService.findAllProducts());
+        model.addAttribute("products", this.productsRestClient.findAllProducts());
         return "atum/products/list";
     }
 
@@ -40,8 +40,8 @@ public class ProductsController {
                     .toList());
             return "atum/products/new_product";
         } else {
-            Product product = this.productService.createProduct(payload.title(), payload.description());
-            return "redirect:/atum/products/%d".formatted(product.getId());
+            Product product = this.productsRestClient.createProduct(payload.title(), payload.description());
+            return "redirect:/atum/products/%d".formatted(product.id());
         }
     }
 }
