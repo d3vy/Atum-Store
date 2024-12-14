@@ -1,4 +1,4 @@
-package com.clothing.atum.exceptions.controllers;
+package com.clothing.atum.controllers;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.MessageSource;

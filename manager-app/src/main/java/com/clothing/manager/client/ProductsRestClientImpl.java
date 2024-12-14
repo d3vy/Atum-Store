@@ -2,7 +2,6 @@ package com.clothing.manager.client;
 
 import com.clothing.manager.controllers.payload.NewProductPayload;
 import com.clothing.manager.controllers.payload.UpdateProductPayload;
-import com.clothing.manager.exceptions.BadRequestException;
 import com.clothing.manager.models.Product;
 import lombok.RequiredArgsConstructor;
 import org.springframework.core.ParameterizedTypeReference;

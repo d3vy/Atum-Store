@@ -1,4 +1,4 @@
-package com.clothing.manager.exceptions;
+package com.clothing.manager.client;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
