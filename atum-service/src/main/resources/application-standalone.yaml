@@ -1,2 +1,18 @@
 server:
   port: 8081
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/clothing_store_catalogue_db
+    username: postgres
+    password: glhf5561783742
+  flyway:
+    schemas:
+      - public
+      - catalogue
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+logging:
+  level:
+    sql: info
