@@ -1,13 +1,20 @@
 server:
   port: 8081
 spring:
+  security:
+    user:
+      name: atum_catalogue_service_user
+      password: '{noop}password'
+      roles:
+        - SERVICE
+
   datasource:
     url: jdbc:postgresql://localhost:5432/clothing_store_catalogue_db
     username: postgres
     password: glhf5561783742
   flyway:
+    baseline-on-migrate: true
     schemas:
-      - public
       - catalogue
   jpa:
     show-sql: true

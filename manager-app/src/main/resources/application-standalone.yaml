@@ -4,3 +4,13 @@ atum:
   services:
     catalogue:
       uri: http://localhost:8081
+      username: atum_catalogue_service_user
+      password: password
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/clothing_store_catalogue_db
+    username: postgres
+    password: glhf5561783742
+  flyway:
+    schemas:
+      - user_management
