@@ -1,13 +1,13 @@
 server:
   port: 8081
 spring:
+  application:
+    name: atum-service
   security:
-    user:
-      name: atum_catalogue_service_user
-      password: '{noop}password'
-      roles:
-        - SERVICE
-
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: http://localhost:8082/realms/atum
   datasource:
     url: jdbc:postgresql://localhost:5432/clothing_store_catalogue_db
     username: postgres

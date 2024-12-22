@@ -5,6 +5,7 @@ import com.clothing.atum.models.Product;
 import com.clothing.atum.services.ProductService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindException;
@@ -17,6 +18,7 @@ import java.util.Map;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("atum-api/products")
+@Slf4j
 public class ProductsRestController {
 
     private final ProductService productService;
@@ -24,6 +26,8 @@ public class ProductsRestController {
     @GetMapping
     public Iterable<Product> findProducts(
             @RequestParam(name = "filter", required = false) String filter) {
+        // Пример получения email из JwtToken
+//        log.info("Principal: {}", ((JwtAuthenticationToken) principal).getToken().getClaimAsString("email"));
         return this.productService.findAllProducts(filter);
     }
 

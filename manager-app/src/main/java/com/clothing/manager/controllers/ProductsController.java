@@ -1,10 +1,11 @@
 package com.clothing.manager.controllers;
 
+import com.clothing.manager.client.BadRequestException;
 import com.clothing.manager.client.ProductsRestClient;
 import com.clothing.manager.controllers.payload.NewProductPayload;
-import com.clothing.manager.client.BadRequestException;
 import com.clothing.manager.models.Product;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,14 +16,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 @Controller
 @RequiredArgsConstructor
 @RequestMapping("atum/products")
+@Slf4j
 public class ProductsController {
 
     private final ProductsRestClient productsRestClient;
 
     @GetMapping("list")
-    public String getProductsList(
-            Model model,
-            @RequestParam(name = "filter", required = false) String filter) {
+    public String getProductsList(Model model, @RequestParam(name = "filter", required = false) String filter) {
         model.addAttribute("products", this.productsRestClient.findAllProducts(filter));
         model.addAttribute("filter", filter);
         return "atum/products/list";

@@ -4,9 +4,27 @@ atum:
   services:
     catalogue:
       uri: http://localhost:8081
-      username: atum_catalogue_service_user
-      password: password
+      registration-id: manager-app
 spring:
+  application:
+    name: manager-app
+  security:
+    oauth2:
+      client:
+        provider:
+          keycloak:
+            issuer-uri: http://localhost:8082/realms/atum
+            user-name-attribute: preferred_username
+        registration:
+          manager-app:
+            provider: keycloak
+            client-id: manager-app
+            client-secret: ImiepoJ7NxQlZsMBcHdrPd2tAXxfAand
+            scope:
+              - openid
+              - microprofile-jwt
+              - view_catalogue
+              - edit_catalogue
   datasource:
     url: jdbc:postgresql://localhost:5432/clothing_store_catalogue_db
     username: postgres
