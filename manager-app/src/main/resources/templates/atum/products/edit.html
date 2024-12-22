@@ -10,20 +10,17 @@
 <div data-th-if="${errors}">
     <h2>There are some errors</h2>
     <ul>
-        <li data-th-each="error : ${errors}"
-            data-th-text="${error}"></li>
+        <li data-th-each="error: ${errors}" data-th-text="${error}"></li>
     </ul>
 </div>
 <form method="post" data-th-action="@{/atum/products/{productId}/edit(productId=${product.id})}">
     <label>
         Title:<br>
-        <input type="text" name="title"
-               data-th-value="${payload != null ? payload.title : product.title}">
+        <input type="text" name="title" data-th-value="${payload != null ? payload.title : product.title}">
     </label><br>
     <label>
         Description:<br>
-        <textarea name="description"
-                  data-th-text="${payload != null ? payload.description : product.description}"></textarea>
+        <textarea name="description" data-th-text="${payload != null ? payload.description : product.description}"></textarea>
     </label><br>
     <button type="submit">Edit</button>
 </form>

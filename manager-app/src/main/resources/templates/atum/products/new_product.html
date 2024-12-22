@@ -10,8 +10,7 @@
 <div data-th-if="${errors}">
     <h2>There are some errors</h2>
     <ul>
-        <li data-th-each="error : ${errors}"
-            data-th-text="${error}"></li>
+        <li data-th-each="error: ${errors}" data-th-text="${error}"></li>
     </ul>
 </div>
 <form method="post" data-th-action="@{/atum/products/create}">

@@ -1,7 +1,7 @@
 package com.clothing.atum.models;
 
-import jakarta.annotation.Nonnull;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -24,7 +24,7 @@ public class Product {
     private Integer id;
 
     @Column(name = "c_title")
-    @Nonnull
+    @NotNull
     @Size(min = 3, max = 50)
     private String title;
 

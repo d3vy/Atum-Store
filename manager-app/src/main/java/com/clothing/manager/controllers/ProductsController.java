@@ -41,10 +41,8 @@ public class ProductsController {
             return "redirect:/atum/products/%d".formatted(product.id());
         } catch (BadRequestException exception) {
             model.addAttribute("payload", payload);
-            model.addAttribute("errors", exception.getMessage());
+            model.addAttribute("errors", exception.getErrors());
             return "atum/products/new_product";
         }
-
-
     }
 }

@@ -25,7 +25,7 @@ public class BadRequestControllerAdvice {
                 .forStatusAndDetail(HttpStatus.BAD_REQUEST,
                         this.messageSource.getMessage(
                                 "errors.400.creating.product", new Object[0],
-                                "400: Error creating product", locale));
+                                "errors.400.creating.product", locale));
         problemDetail.setProperty("errors",
                 exception.getAllErrors().stream()
                         .map(MessageSourceResolvable::getDefaultMessage)
