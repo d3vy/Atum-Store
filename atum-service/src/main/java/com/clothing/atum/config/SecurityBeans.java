@@ -24,7 +24,7 @@ public class SecurityBeans {
                         .hasAuthority("SCOPE_edit_catalogue")
                         .requestMatchers(HttpMethod.DELETE, "/atum-api/products/{productId:\\d+}")
                         .hasAuthority("SCOPE_edit_catalogue")
-                        .anyRequest().denyAll())
+                        .anyRequest().permitAll())
                 .csrf(CsrfConfigurer::disable)
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .oauth2ResourceServer(oauth2ResourceServer -> oauth2ResourceServer

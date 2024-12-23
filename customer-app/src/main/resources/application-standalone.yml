@@ -1,0 +1,6 @@
+server:
+  port: 8083
+atum:
+  services:
+    catalogue:
+      uri: http://localhost:8081

@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Our Products &dash; Atum</title>
+</head>
+<body>
+<h1>Our Products</h1>
+<form>
+    <label>Filter:<input type="text" name="filter" data-th-value="${filter}"></label><button type="submit">Search</button></label>
+</form>
+<ul>
+    <li data-th-each="product : ${products}">
+        <strong>
+            <a data-th-text="${product.title}"
+               data-th-href="@{/customer/products/{productId}(productId=${product.id})}"></a>
+        </strong>
+        <p data-th-text="${product.description}"></p>
+    </li>
+</ul>
+</body>
+</html>
