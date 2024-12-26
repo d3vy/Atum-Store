@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>[[${product.title}]] &dash; Atum</title>
+</head>
+<body>
+<a data-th-href="@{/customer/products/list}">&larr; Back to products</a>
+<h1 data-th-text="${product.title}"></h1>
+<p data-th-text="${product.description}"></p>
+<form method="post" data-th-action="@{/customer/products/{productId}/add-to-favorites(productId=${product.id})}"
+      data-th-if="${!inFavorites}">
+    <button type="submit">add to favorites</button>
+</form>
+<form method="post" data-th-action="@{/customer/products/{productId}/remove-from-favorites(productId=${product.id})}"
+      data-th-if="${inFavorites}">
+    <button type="submit">remove from favorites</button>
+</form>
+</body>
+</html>

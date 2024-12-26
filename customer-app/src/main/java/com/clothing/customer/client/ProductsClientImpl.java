@@ -4,6 +4,7 @@ import com.clothing.customer.models.Product;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
 
 @RequiredArgsConstructor
 public class ProductsClientImpl implements ProductsClient {
@@ -17,5 +18,14 @@ public class ProductsClientImpl implements ProductsClient {
                 .uri("/atum-api/products?filter={filter}", filter)
                 .retrieve()
                 .bodyToFlux(Product.class);
+    }
+
+    @Override
+    public Mono<Product> findProduct(Integer productId) {
+        return this.webClient
+                .get()
+                .uri("/atum-api/products/{productId}", productId)
+                .retrieve()
+                .bodyToMono(Product.class);
     }
 }
