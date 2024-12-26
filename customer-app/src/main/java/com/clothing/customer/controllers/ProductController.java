@@ -14,6 +14,8 @@ import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Mono;
 
+import java.util.NoSuchElementException;
+
 @Controller
 @RequiredArgsConstructor
 @RequestMapping("customer/products/{productId:\\d+}")
@@ -25,7 +27,8 @@ public class ProductController {
 
     @ModelAttribute(value = "product", binding = false)
     public Mono<Product> loadProduct(@PathVariable("productId") Integer productId) {
-        return productsClient.findProduct(productId);
+        return productsClient.findProduct(productId)
+                .switchIfEmpty(Mono.error(new NoSuchElementException("customer.products.error.not_found")));
     }
 
     @GetMapping
@@ -77,5 +80,11 @@ public class ProductController {
                     .flatMap(productId -> this.productReviewsService.createProductReview(productId, payload.rating(), payload.review())
                             .thenReturn("redirect:/customer/products/%d".formatted(productId)));
         }
+    }
+
+    @ExceptionHandler(NoSuchElementException.class)
+    public String handleNoSuchElementException(NoSuchElementException exception, Model model) {
+        model.addAttribute("error", exception.getMessage());
+        return "errors/404";
     }
 }

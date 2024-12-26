@@ -4,6 +4,7 @@ import com.clothing.customer.models.FavoriteProduct;
 import com.clothing.customer.repositories.FavoriteProductRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 import java.util.UUID;
@@ -27,5 +28,10 @@ public class FavoriteProductsServiceImpl implements FavoriteProductsService {
     @Override
     public Mono<FavoriteProduct> findFavoriteProductByProductId(Integer productId) {
         return this.favoriteProductRepository.findByProductId(productId);
+    }
+
+    @Override
+    public Flux<FavoriteProduct> findAllFavoriteProducts() {
+        return this.favoriteProductRepository.findAll();
     }
 }

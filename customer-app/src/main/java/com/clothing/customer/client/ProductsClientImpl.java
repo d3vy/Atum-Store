@@ -3,6 +3,7 @@ package com.clothing.customer.client;
 import com.clothing.customer.models.Product;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.reactive.function.client.WebClient;
+import org.springframework.web.reactive.function.client.WebClientResponseException;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
@@ -26,6 +27,7 @@ public class ProductsClientImpl implements ProductsClient {
                 .get()
                 .uri("/atum-api/products/{productId}", productId)
                 .retrieve()
-                .bodyToMono(Product.class);
+                .bodyToMono(Product.class)
+                .onErrorComplete(WebClientResponseException.NotFound.class);
     }
 }

@@ -32,4 +32,9 @@ public class FavoriteProductRepositoryImpl implements FavoriteProductRepository 
                 .filter(favoriteProduct -> favoriteProduct.getProductId().equals(productId))
                 .singleOrEmpty();
     }
+
+    @Override
+    public Flux<FavoriteProduct> findAll() {
+        return Flux.fromIterable(this.favoriteProducts);
+    }
 }
