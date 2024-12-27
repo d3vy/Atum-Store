@@ -1,7 +1,7 @@
-package com.clothing.customer.service;
+package com.clothing.feedback.service;
 
-import com.clothing.customer.models.ProductReview;
-import com.clothing.customer.repositories.ProductReviewRepository;
+import com.clothing.feedback.models.ProductReview;
+import com.clothing.feedback.repositories.ProductReviewRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;

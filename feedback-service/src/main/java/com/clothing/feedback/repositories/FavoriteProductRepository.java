@@ -1,7 +1,7 @@
-package com.clothing.customer.repositories;
+package com.clothing.feedback.repositories;
 
 
-import com.clothing.customer.models.FavoriteProduct;
+import com.clothing.feedback.models.FavoriteProduct;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 

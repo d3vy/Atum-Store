@@ -1,5 +1,7 @@
 package com.clothing.customer.config;
 
+import com.clothing.customer.client.FavoriteProductsClientImpl;
+import com.clothing.customer.client.ProductReviewsClientImpl;
 import com.clothing.customer.client.ProductsClientImpl;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -15,6 +17,24 @@ public class ClientBeans {
     ) {
         return new ProductsClientImpl(WebClient.builder()
                 .baseUrl(catalogueBaseUrl)
+                .build());
+    }
+
+    @Bean
+    public FavoriteProductsClientImpl favoriteProductsClientImpl(
+            @Value("${atum.services.feedback.uri:http://localhost:8084}") String feedbackBaseUrl
+    ) {
+        return new FavoriteProductsClientImpl(WebClient.builder()
+                .baseUrl(feedbackBaseUrl)
+                .build());
+    }
+
+    @Bean
+    public ProductReviewsClientImpl productReviewsClientImpl(
+            @Value("${atum.services.reviews.uri:http://localhost:8084}") String reviewsBaseUrl
+    ) {
+        return new ProductReviewsClientImpl(WebClient.builder()
+                .baseUrl(reviewsBaseUrl)
                 .build());
     }
 }

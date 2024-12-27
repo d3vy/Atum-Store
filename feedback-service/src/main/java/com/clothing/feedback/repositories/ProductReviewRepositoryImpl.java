@@ -1,6 +1,6 @@
-package com.clothing.customer.repositories;
+package com.clothing.feedback.repositories;
 
-import com.clothing.customer.models.ProductReview;
+import com.clothing.feedback.models.ProductReview;
 import org.springframework.stereotype.Repository;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
