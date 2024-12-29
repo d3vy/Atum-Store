@@ -1,5 +1,3 @@
-server:
-  port: 8083
 atum:
   services:
     catalogue:
@@ -8,3 +6,20 @@ atum:
       uri: http://localhost:8084
     reviews:
       uri: http://localhost:8084
+server:
+  port: 8083
+spring:
+  security:
+    oauth2:
+      client:
+        provider:
+          keycloak:
+            issuer_uri: http://localhost:8082/realms/atum
+            user-name-attribute: preferred_username
+        registration:
+          keycloak:
+            clientId: customer-app
+            clientSecret: j8rIQjLPe0nCq4WWS09eOvpKgTW6kx6u
+            scope:
+              - openid
+              - view_catalogue
