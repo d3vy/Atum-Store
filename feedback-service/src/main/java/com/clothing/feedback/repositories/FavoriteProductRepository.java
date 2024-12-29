@@ -2,16 +2,16 @@ package com.clothing.feedback.repositories;
 
 
 import com.clothing.feedback.models.FavoriteProduct;
-import reactor.core.publisher.Flux;
+import org.springframework.data.repository.reactive.ReactiveCrudRepository;
+import org.springframework.stereotype.Repository;
 import reactor.core.publisher.Mono;
 
-public interface FavoriteProductRepository {
+import java.util.UUID;
 
-    Mono<FavoriteProduct> save(FavoriteProduct favoriteProduct);
+@Repository
+public interface FavoriteProductRepository extends ReactiveCrudRepository<FavoriteProduct, UUID> {
 
     Mono<Void> deleteByProductId(Integer productId);
 
     Mono<FavoriteProduct> findByProductId(Integer productId);
-
-    Flux<FavoriteProduct> findAll();
 }
