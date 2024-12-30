@@ -6,6 +6,7 @@ import com.clothing.feedback.service.ProductReviewsService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationToken;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 import reactor.core.publisher.Flux;
@@ -26,13 +27,22 @@ public class ProductReviewsRestController {
     }
 
     @PostMapping
-    public Mono<ResponseEntity<ProductReview>> createProductReview(@Valid @RequestBody Mono<NewProductReviewPayload> payloadMono,
-                                                                   UriComponentsBuilder uriComponentsBuilder) {
-        return payloadMono
-                .flatMap(payload -> this.productReviewsService.createProductReview(payload.productId(), payload.rating(), payload.review()))
+    public Mono<ResponseEntity<ProductReview>> createProductReview(
+            Mono<JwtAuthenticationToken> jwtAuthenticationTokenMono,
+            @Valid @RequestBody Mono<NewProductReviewPayload> payloadMono,
+            UriComponentsBuilder uriComponentsBuilder) {
+        return jwtAuthenticationTokenMono.flatMap(token ->
+                        payloadMono
+                                .flatMap(payload -> this.productReviewsService
+                                        .createProductReview(
+                                                payload.productId(),
+                                                payload.rating(),
+                                                payload.review(),
+                                                token.getToken().getSubject())))
                 .map(productReview -> ResponseEntity
                         .created(uriComponentsBuilder.replacePath("/feedback-api/product-reviews/{id}")
                                 .build(Map.of("id", productReview.getId())))
                         .body(productReview));
+
     }
 }
