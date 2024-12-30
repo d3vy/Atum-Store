@@ -59,7 +59,8 @@ public class ProductController {
     }
 
     @PostMapping("remove-from-favorites")
-    public Mono<String> removeProductFromFavorites(@ModelAttribute("product") Mono<Product> productMono) {
+    public Mono<String> removeProductFromFavorites(
+            @ModelAttribute("product") Mono<Product> productMono) {
         return productMono
                 .map(Product::id)
                 .flatMap(productId -> this.favoriteProductsClient.removeProductFromFavorites(productId)

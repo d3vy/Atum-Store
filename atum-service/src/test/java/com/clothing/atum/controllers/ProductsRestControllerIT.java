@@ -33,7 +33,6 @@ class ProductsRestControllerIT {
 
         //when
         this.mockMvc.perform(requestBuilder)
-
                 //then
                 .andDo(print())
                 .andExpectAll(
