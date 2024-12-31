@@ -1,7 +1,6 @@
 package com.clothing.feedback.config;
 
 
-import org.springframework.boot.testcontainers.service.connection.ServiceConnection;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.oauth2.jwt.ReactiveJwtDecoder;
@@ -14,7 +13,7 @@ import static org.mockito.Mockito.mock;
 public class TestBeans {
 
     @Bean(initMethod = "start", destroyMethod = "stop")
-    @ServiceConnection
+//    @ServiceConnection
     public MongoDBContainer mongoDBContainer() {
         return new MongoDBContainer("mongo:7");
     }
