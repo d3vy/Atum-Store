@@ -1,6 +1,14 @@
 server:
   port: 8081
 spring:
+  boot:
+    admin:
+      client:
+        enabled: true
+        instance:
+          name: atum-service
+          service-host-type: ip
+        url: http://localhost:8085
   application:
     name: atum-service
   security:

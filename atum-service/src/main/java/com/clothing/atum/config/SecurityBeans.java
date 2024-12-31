@@ -16,16 +16,19 @@ public class SecurityBeans {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         return http
                 .authorizeHttpRequests(request -> request
-                        .requestMatchers(HttpMethod.GET)
-                        .hasAuthority("SCOPE_view_catalogue")
+                        .requestMatchers("/v3/api-docs/**", "/swagger-ui.html", "/swagger-ui/**")
+                        .permitAll()
                         .requestMatchers(HttpMethod.POST, "/atum-api/products")
                         .hasAuthority("SCOPE_edit_catalogue")
                         .requestMatchers(HttpMethod.PATCH, "/atum-api/products/{productId:\\d+}")
                         .hasAuthority("SCOPE_edit_catalogue")
                         .requestMatchers(HttpMethod.DELETE, "/atum-api/products/{productId:\\d+}")
                         .hasAuthority("SCOPE_edit_catalogue")
-                        .anyRequest().permitAll()
-                        )
+                        .requestMatchers("/actuator/**").hasAuthority("SCOPE_metrics")
+                        .requestMatchers(HttpMethod.GET)
+                        .hasAuthority("SCOPE_view_catalogue")
+                        .anyRequest().denyAll()
+                )
                 .csrf(CsrfConfigurer::disable)
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .oauth2ResourceServer(oauth2ResourceServer -> oauth2ResourceServer
