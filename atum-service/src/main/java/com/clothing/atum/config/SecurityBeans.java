@@ -29,6 +29,7 @@ public class SecurityBeans {
                         .hasAuthority("SCOPE_view_catalogue")
                         .anyRequest().denyAll()
                 )
+                .oauth2Client(Customizer.withDefaults())
                 .csrf(CsrfConfigurer::disable)
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .oauth2ResourceServer(oauth2ResourceServer -> oauth2ResourceServer

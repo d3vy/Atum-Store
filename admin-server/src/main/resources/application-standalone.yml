@@ -3,14 +3,24 @@ server:
 spring:
   security:
     oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: http://localhost:8082/realms/atum
       client:
         provider:
           keycloak:
             issuer-uri: http://localhost:8082/realms/atum
         registration:
           keycloak:
-            client-id: admin-service
-            client-secret: oP2224v1w4TtnmGCBPilWh3PlAygaYCv
             authorization_grant_type: client_credentials
             scope:
               - metrics
+            client-id: admin-service
+            client-secret: oP2224v1w4TtnmGCBPilWh3PlAygaYCv
+          login:
+            provider: keycloak
+            scope:
+              - metrics
+              - openid
+            client-id: admin-service
+            client-secret: oP2224v1w4TtnmGCBPilWh3PlAygaYCv
