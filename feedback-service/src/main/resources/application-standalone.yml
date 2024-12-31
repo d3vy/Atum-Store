@@ -6,7 +6,7 @@ spring:
       client:
         url: http://localhost:8085
         instance:
-          name: atum-service
+          name: feedback-service
           service-host-type: ip
         enabled: true
   data:

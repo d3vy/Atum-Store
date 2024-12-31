@@ -9,6 +9,14 @@ atum:
 server:
   port: 8083
 spring:
+  boot:
+    admin:
+      client:
+        url: http://localhost:8085
+        instance:
+          name: customer-app
+          service-host-type: ip
+        enabled: true
   security:
     oauth2:
       client:
@@ -20,6 +28,27 @@ spring:
           keycloak:
             clientId: customer-app
             clientSecret: j8rIQjLPe0nCq4WWS09eOvpKgTW6kx6u
+            authorization-grant-type: authorization_code
             scope:
               - openid
               - view_catalogue
+          metrics:
+            provider: keycloak
+            client-id: customer-app-metrics-client
+            client-secret: Jj4rA2FEXHnKMog1Pv4J0p2Jk8j5tyhx
+            authorization-grant-type: client_credentials
+            scope:
+              - metrics_server
+      resourceserver:
+        jwt:
+          issuer-uri: http://localhost:8082/realms/atum
+management:
+  health:
+    livenessstate:
+      enabled: true
+    readinessstate:
+      enabled: true
+  endpoints:
+    web:
+      exposure:
+        include: '*'

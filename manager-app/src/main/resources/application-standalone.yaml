@@ -4,10 +4,18 @@ atum:
   services:
     catalogue:
       uri: http://localhost:8081
-      registration-id: manager-app
+      registration-id: keycloak
 spring:
   application:
     name: manager-app
+  boot:
+    admin:
+      client:
+        url: http://localhost:8085
+        instance:
+          name: manager-app
+          service-host-type: ip
+        enabled: true
   security:
     oauth2:
       client:
@@ -16,8 +24,7 @@ spring:
             issuer-uri: http://localhost:8082/realms/atum
             user-name-attribute: preferred_username
         registration:
-          manager-app:
-            provider: keycloak
+          keycloak:
             client-id: manager-app
             client-secret: ImiepoJ7NxQlZsMBcHdrPd2tAXxfAand
             scope:
@@ -25,6 +32,16 @@ spring:
               - microprofile-jwt
               - view_catalogue
               - edit_catalogue
+          metrics:
+            provider: keycloak
+            client-id: manager-app-metrics-client
+            client-secret: F4FvdPuFbPFW6JyGitZbDtM5bmnZ3Twv
+            authorization-grant-type: client_credentials
+            scope:
+              - metrics_server
+      resourceserver:
+        jwt:
+          issuer-uri: http://localhost:8082/realms/atum
   datasource:
     url: jdbc:postgresql://localhost:5432/clothing_store_catalogue_db
     username: postgres
@@ -32,3 +49,13 @@ spring:
   flyway:
     schemas:
       - user_management
+management:
+  health:
+    livenessstate:
+      enabled: true
+    readinessstate:
+      enabled: true
+  endpoints:
+    web:
+      exposure:
+        include: '*'
