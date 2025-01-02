@@ -12,6 +12,7 @@ import org.springframework.web.client.RestClient;
 
 import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.Objects;
 import java.util.Optional;
 
 @RequiredArgsConstructor
@@ -44,9 +45,16 @@ public class ProductsRestClientImpl implements ProductsRestClient {
                     .body(Product.class);
         } catch (HttpClientErrorException.BadRequest exception) {
             ProblemDetail problemDetail = exception.getResponseBodyAs(ProblemDetail.class);
-            throw new BadRequestException((List<String>) problemDetail.getProperties().get("errors"));
+            assert problemDetail != null;
+            Object errors = Objects.requireNonNull(problemDetail.getProperties()).get("errors");
+            if (errors instanceof List) {
+                throw new BadRequestException((List<String>) errors);
+            } else {
+                throw new BadRequestException(List.of("Unknown error occurred"));
+            }
         }
     }
+
 
     @Override
     public Optional<Product> findProduct(Integer productId) {
@@ -64,13 +72,13 @@ public class ProductsRestClientImpl implements ProductsRestClient {
     @Override
     public void updateProduct(Integer productId, String title, String description) {
         try {
-             this.restClient
+            this.restClient
                     .patch()
                     .uri("/atum-api/products/{productId}", productId)
                     .contentType(MediaType.APPLICATION_JSON)
                     .body(new UpdateProductPayload(title, description))
                     .retrieve()
-                     .toBodilessEntity();
+                    .toBodilessEntity();
         } catch (HttpClientErrorException.BadRequest exception) {
             ProblemDetail problemDetail = exception.getResponseBodyAs(ProblemDetail.class);
             throw new BadRequestException((List<String>) problemDetail.getProperties().get("errors"));
@@ -86,7 +94,7 @@ public class ProductsRestClientImpl implements ProductsRestClient {
                     .retrieve()
                     .toBodilessEntity();
         } catch (HttpClientErrorException.NotFound exception) {
-           throw new NoSuchElementException(exception);
+            throw new NoSuchElementException(exception);
         }
     }
 }
