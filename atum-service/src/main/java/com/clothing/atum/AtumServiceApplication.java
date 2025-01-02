@@ -7,7 +7,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class AtumServiceApplication {
     public static void main(String[] args) {
         SpringApplication app = new SpringApplication(AtumServiceApplication.class);
-        app.setAdditionalProfiles("standalone");
+        app.setAdditionalProfiles("cloudconfig");
         app.run(args);
     }
 }

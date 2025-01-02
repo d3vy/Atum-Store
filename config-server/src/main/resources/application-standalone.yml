@@ -1,0 +1,13 @@
+server:
+  port: 8888
+spring:
+  application:
+    name:
+      atum-config-server
+  cloud:
+    config:
+      server:
+        native:
+          search-locations: D://git/atum-store/config/cloud/{application}/{profile}
+
+
